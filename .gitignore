@@ -1,0 +1,16 @@
+*.lock
+*.pem
+.DS_Store
+.env*
+.next
+.pnp
+.pnp.js
+.vercel
+build
+coverage
+generated
+next*
+node_modules
+npm*
+out
+yarn*
