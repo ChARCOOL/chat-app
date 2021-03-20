@@ -1,10 +1,10 @@
 import React from 'react'
 import Head from 'next/head'
-import { withUrqlClient, NextUrqlAppContext } from 'next-urql'
-import NextApp, { AppProps } from 'next/app'
-import fetch from 'isomorphic-unfetch'
+import { AppProps } from 'next/app'
+import { ToastContainer } from 'react-toastify'
 
 import '../styles/globals.css'
+import 'react-toastify/dist/ReactToastify.min.css'
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
@@ -15,20 +15,10 @@ const App = ({ Component, pageProps }: AppProps) => {
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
         />
       </Head>
+      <ToastContainer autoClose={2500} />
       <Component {...pageProps} />
     </>
   )
 }
 
-App.getInitialProps = async (ctx: NextUrqlAppContext) => {
-  const appProps = await NextApp.getInitialProps(ctx)
-  return { ...appProps }
-}
-
-export default withUrqlClient((_ssrExchange, _ctx) => ({
-  url: 'http://localhost:3000/api/graphql',
-  fetch,
-}))(
-  // @ts-ignore
-  App
-)
+export default App

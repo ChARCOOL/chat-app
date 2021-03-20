@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import { MicroRequest } from 'apollo-server-micro/dist/types'
 
-const prisma = new PrismaClient()
+import prisma from '../prisma'
 
 export interface Context {
   prisma: PrismaClient

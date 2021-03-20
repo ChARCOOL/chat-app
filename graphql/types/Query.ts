@@ -1,21 +1,18 @@
-import { queryType, stringArg } from '@nexus/schema'
-import { getUserId } from '../../utils'
+import { queryType, stringArg } from 'nexus'
+
+import { getUserId } from '../../utils/server'
 
 export const Query = queryType({
   definition(t) {
     t.field('me', {
       type: 'User',
       resolve: async (root, args, { prisma, req }) => {
-        const user = await prisma.user.findUnique({
-          where: {
-            id: getUserId(req),
-          },
-        })
+        try {
+          const user = await prisma.user.findUnique({ where: { id: getUserId(req) } })
 
-        if (!user) throw new Error('User not found')
-
-        return {
-          ...user,
+          return user
+        } catch (err) {
+          return err
         }
       },
     })
@@ -23,24 +20,28 @@ export const Query = queryType({
     t.list.field('getUser', {
       type: 'User',
       args: {
-        email: stringArg(),
         username: stringArg(),
+        email: stringArg(),
       },
       resolve: async (root, args, { prisma }) => {
-        const user = await prisma.user.findMany({
-          where: {
-            email: {
-              contains: args.email,
-              mode: 'insensitive',
-            },
-            username: {
-              contains: args.username,
-              mode: 'insensitive',
-            },
-          },
-        })
+        try {
+          let user = await prisma.user.findMany()
 
-        return user
+          if (args.username || args.email) {
+            user = await prisma.user.findMany({
+              where: {
+                OR: [
+                  { username: { equals: args.username, mode: 'insensitive' } },
+                  { email: { equals: args.email, mode: 'insensitive' } },
+                ],
+              },
+            })
+          }
+
+          return user
+        } catch (err) {
+          return err
+        }
       },
     })
   },
