@@ -54,7 +54,8 @@ export const Mutation = mutationType({
           await sendEmail({
             to: user.email,
             subject: 'Email verification',
-            text: `Hi ${user.username},
+            text: `
+            Hi ${user.username},
 
             Thanks for using our app!
             
@@ -64,7 +65,8 @@ export const Mutation = mutationType({
             
             ${req.headers.origin}/verify-email/${emailToken}
             
-            If you have problems, please paste the above URL into your web browser.`,
+            If you have problems, please paste the above URL into your web browser.
+            `,
           })
 
           return user
@@ -179,6 +181,45 @@ export const Mutation = mutationType({
           const user = prisma.user.update({ where: { id }, data: { isVerified: true } })
 
           if (!user) throw new Error('User not found with given email address')
+
+          return true
+        } catch (err) {
+          return err
+        }
+      },
+    })
+
+    t.nonNull.boolean('resendVerification', {
+      args: {
+        email: nonNull(stringArg()),
+      },
+      resolve: async (root, args, { prisma, req }) => {
+        try {
+          const user = await prisma.user.findUnique({ where: { email: args.email } })
+
+          if (!user) throw new Error("User with given email doesn't exists")
+
+          const emailToken = jwt.sign({ id: user.id }, process.env.JWT_EMAIL_SECRET, {
+            expiresIn: '1h',
+          })
+
+          await sendEmail({
+            to: user.email,
+            subject: 'Email verification',
+            text: `
+            Hi ${user.username},
+
+            Thanks for using our app!
+            
+            We need a little more information to complete your registration, including a confirmation of your email address. 
+            
+            Click below to confirm your email address:
+            
+            ${req.headers.origin}/verify-email/${emailToken}
+            
+            If you have problems, please paste the above URL into your web browser.
+            `,
+          })
 
           return true
         } catch (err) {

@@ -11,12 +11,12 @@ const verifyEmail: React.FC = () => {
 
   const { token } = router.query
 
-  const [isVerified, setIsVerified] = useState<null | boolean | string>(null)
+  const [isVerified, setIsVerified] = useState<null | boolean>(null)
 
   useEffect(() => {
     if (typeof token === 'string') {
       verifyEmailQuery(token).then(({ data }) => {
-        if (data.data == null) setIsVerified(data.errors[0].message)
+        if (data.data == null) setIsVerified(false)
         else setIsVerified(true)
       })
     }
@@ -27,17 +27,17 @@ const verifyEmail: React.FC = () => {
       <Card className="relative w-10/12 h-5/6 p-5 flex flex-col items-center">
         {isVerified == null ? (
           <CircularProgress
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-            style={{ color: '#720058' }}
+            className="absolute top-0 bottom-0 left-0 right-0 m-auto"
+            color="primary"
             size={80}
           />
         ) : (
           <>
             <div className="absolute top-12 text-center">
               {isVerified === true ? (
-                <CheckCircleFilled className="text-8xl pb-3" style={{ color: '#720058' }} />
+                <CheckCircleFilled className="text-8xl pb-3" color="primary" />
               ) : (
-                <CloseCircleFilled className="text-8xl pb-3" style={{ color: '#720058' }} />
+                <CloseCircleFilled className="text-8xl pb-3" color="primary" />
               )}
 
               <p className="font-bold text-3xl pt-3">

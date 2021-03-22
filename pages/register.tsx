@@ -93,7 +93,7 @@ const Register: React.FC = () => {
           <p className="text-3xl font-bold font-mono">Register</p>
         </div>
         <form className="flex flex-col items-center mt-14" onSubmit={formik.handleSubmit}>
-          <div className="relative flex items-center w-64">
+          <div className="relative flex items-center">
             {usernameLoading ? (
               <CircularProgress size={25} className="m-auto mt-5" style={{ color: 'black' }} />
             ) : (
@@ -106,7 +106,6 @@ const Register: React.FC = () => {
                   <ReloadOutlined />
                 </IconButton>
                 <TextField
-                  fullWidth
                   id="username"
                   name="username"
                   label="Username"
@@ -119,7 +118,7 @@ const Register: React.FC = () => {
               </>
             )}
           </div>
-          <div className="relative flex items-center w-64">
+          <div className="relative flex items-center">
             {emailLoading ? (
               <CircularProgress size={25} className="m-auto mt-5" style={{ color: 'black' }} />
             ) : (
@@ -132,7 +131,6 @@ const Register: React.FC = () => {
                   <ReloadOutlined />
                 </IconButton>
                 <TextField
-                  fullWidth
                   id="email"
                   name="email"
                   label="Email"
@@ -150,7 +148,6 @@ const Register: React.FC = () => {
             name="password"
             label="Password"
             type="password"
-            className="w-64"
             value={formik.values.password}
             onChange={formik.handleChange}
             error={Boolean(formik.values.password) && Boolean(formik.errors.password)}
@@ -161,7 +158,6 @@ const Register: React.FC = () => {
             name="passwordConfirm"
             label="Confirm Password"
             type="password"
-            className="w-64"
             value={formik.values.passwordConfirm}
             onChange={formik.handleChange}
             error={Boolean(formik.values.passwordConfirm) && Boolean(formik.errors.passwordConfirm)}
@@ -172,7 +168,6 @@ const Register: React.FC = () => {
             name="inviteCode"
             label="Invite Code"
             type="text"
-            className="w-64"
             value={formik.values.inviteCode}
             onChange={formik.handleChange}
             error={Boolean(formik.values.inviteCode) && Boolean(formik.errors.inviteCode)}
@@ -181,7 +176,7 @@ const Register: React.FC = () => {
           <div className="text-center mt-10">
             <Button
               className="w-48 transform transition duration-75 ease-in-out active:scale-95 hover:scale-105"
-              style={{ backgroundColor: '#720058', color: '#FFFFFF' }}
+              color="primary"
               variant="contained"
               type="submit"
             >
