@@ -58,6 +58,7 @@ const Register: React.FC = () => {
         toast.success('Successfully registered, check your email for verification')
 
         setTimeout(() => router.push('/', null, { shallow: true }), 2500)
+        return
       }
     },
   })
@@ -175,7 +176,7 @@ const Register: React.FC = () => {
           />
           <div className="text-center mt-10">
             <Button
-              className="w-48 transform transition duration-75 ease-in-out active:scale-95 hover:scale-105"
+              className="w-40 transform transition duration-75 ease-in-out active:scale-95 hover:scale-105"
               color="primary"
               variant="contained"
               type="submit"

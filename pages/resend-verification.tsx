@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 
 import { resendVerificationQuery } from '../utils/client'
 
-const ResendVerificationEmail = () => {
+const ResendVerification = () => {
   const [email, setEmail] = useState('')
   const [emailError, setEmailError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -39,11 +39,12 @@ const ResendVerificationEmail = () => {
 
   return (
     <div className="flex justify-center items-center w-screen h-screen absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-      <Card className="relative w-10/12 h-5/6 p-5 flex flex-col justify-center items-center">
-        <p className="absolute top-20 text-3xl font-bold font-mono">Resend Verification</p>
-        <form className="w-56 h-32 flex flex-col justify-between" onSubmit={handleSubmit}>
+      <Card className="w-10/12 h-5/6 flex flex-col justify-center">
+        <div className="mt-2 text-center">
+          <p className="text-3xl font-semibold font-mono">Resend Verification</p>
+        </div>
+        <form className="flex flex-col items-center mt-14" onSubmit={handleSubmit}>
           <TextField
-            fullWidth
             id="email"
             name="email"
             label="Email"
@@ -52,13 +53,21 @@ const ResendVerificationEmail = () => {
             error={Boolean(emailError)}
             helperText={Boolean(emailError) && emailError}
           />
-          <Button color="primary" variant="contained" type="submit" disabled={loading}>
-            Resend
-          </Button>
+          <div className="mt-10">
+            <Button
+              className="w-40 transform transition duration-75 ease-in-out active:scale-95 hover:scale-105"
+              color="primary"
+              variant="contained"
+              type="submit"
+              disabled={loading}
+            >
+              Resend
+            </Button>
+          </div>
         </form>
       </Card>
     </div>
   )
 }
 
-export default ResendVerificationEmail
+export default ResendVerification

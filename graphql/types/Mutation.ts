@@ -76,7 +76,7 @@ export const Mutation = mutationType({
       },
     })
 
-    t.nonNull.field('signIn', {
+    t.nonNull.field('login', {
       type: 'AuthPayload',
       args: {
         email: nonNull(stringArg()),
@@ -86,9 +86,9 @@ export const Mutation = mutationType({
         try {
           let user = await prisma.user.findUnique({ where: { email: args.email } })
 
-          if (!user) throw new Error('User not found')
+          if (!user) throw new Error("User doesn't exists with given email address")
 
-          // if (!user.isVerified) throw new Error("User's email address is not verified")
+          if (!user.isVerified) throw new Error("User's email address is not verified")
 
           if (!bcrypt.compareSync(args.password, user.password))
             throw new Error("Passwords doesn't match")
