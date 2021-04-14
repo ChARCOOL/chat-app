@@ -41,11 +41,11 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center w-screen h-screen absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-      <Card className="w-10/12 h-5/6 flex flex-col justify-center">
-        <div className="mt-2 text-center">
-          <p className="text-3xl font-bold font-mono">Login</p>
+      <Card className="w-10/12 h-5/6 flex flex-col justify-center items-center">
+        <div className="relative -top-16">
+          <p className="text-3xl font-bold font-mono">Log in</p>
         </div>
-        <form className="flex flex-col items-center mt-14" onSubmit={formik.handleSubmit}>
+        <form className="flex flex-col items-center" onSubmit={formik.handleSubmit}>
           <TextField
             id="email"
             name="email"

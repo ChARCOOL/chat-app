@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Card, TextField, Button } from '@material-ui/core'
 import { toast } from 'react-toastify'
 
-import { resendVerificationQuery } from '../utils/client'
+import { resendVerificationQuery } from '../../utils/client'
 
 const ResendVerification = () => {
   const [email, setEmail] = useState('')
@@ -39,9 +39,9 @@ const ResendVerification = () => {
 
   return (
     <div className="flex justify-center items-center w-screen h-screen absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-      <Card className="w-10/12 h-5/6 flex flex-col justify-center">
-        <div className="mt-2 text-center">
-          <p className="text-3xl font-semibold font-mono">Resend Verification</p>
+      <Card className="w-10/12 h-5/6 flex flex-col justify-center items-center">
+        <div className="relative -top-16">
+          <p className="text-2xl font-bold font-mono">Resend Verification</p>
         </div>
         <form className="flex flex-col items-center mt-14" onSubmit={handleSubmit}>
           <TextField
